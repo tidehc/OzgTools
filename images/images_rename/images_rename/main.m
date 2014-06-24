@@ -2,8 +2,8 @@
 //  main.m
 //  images_rename
 //
-//  Created by 欧 志刚 on 13-10-4.
-//  Copyright (c) 2013年 欧 志刚. All rights reserved.
+//  Created by ozg on 13-10-4.
+//  Copyright (c) 2013年 ozg. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

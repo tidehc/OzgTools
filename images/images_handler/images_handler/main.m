@@ -2,8 +2,8 @@
 //  main.m
 //  images_handler
 //
-//  Created by 欧 志刚 on 13-10-2.
-//  Copyright (c) 2013年 欧 志刚. All rights reserved.
+//  Created by ozg on 13-10-2.
+//  Copyright (c) 2013年 ozg. All rights reserved.
 //
 
 #import <Foundation/Foundation.h> //引用Foundation.framework

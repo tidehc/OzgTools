@@ -5,6 +5,8 @@ import sys
 import wx
 import cfg
 
+from threading import Thread  
+
 class OzgMainFrame(wx.Frame):
 	
 	def __init__(self):
@@ -64,9 +66,35 @@ class OzgMainFrame(wx.Frame):
 				else:
 					#filesFilter = self.filesFilterTextCtrl.GetValue().split(u";")
 					#print filesFilter
+										
+					self.childThread = Thread(target = self.EncodeChangeThread, args = ())
+					self.childThread.start()
 
-					files = os.listdir(self.dirTextCtrl.GetValue())
-					print files
+	def EncodeChangeThread(self):
+		wx.CallAfter(self.EnableUI, False)
+		self.EncodeChange(self.dirTextCtrl.GetValue())
+		wx.CallAfter(self.FinishChange)
+		
+	def EncodeChange(self, dirPath):
+		files = os.listdir(dirPath)
+		for f in files:
+			filePath = os.path.join(dirPath, f)
+			if os.path.isdir(filePath):
+				self.EncodeChange(filePath)
+			else:
+				print u"%s %s" % (filePath, cfg.STRINGS_RUNNING_MSG)
+	
+	def EnableUI(self, isEnable):
+		self.filesFilterTextCtrl.Enable(isEnable)
+		self.dirTextCtrl.Enable(isEnable)
+		self.encodeGBKRadio.Enable(isEnable)
+		self.selectDirButton.Enable(isEnable)
+		self.runButton.Enable(isEnable)
+
+	def FinishChange(self):
+		alert = wx.MessageDialog(None, cfg.STRINGS_DIALOG_MSG4, cfg.STRINGS_DIALOG_TITLE, style = wx.OK, pos = (100, 100))
+		alert.ShowModal()
+		self.EnableUI(True)
 
 if __name__ == "__main__":
 	app = wx.App()

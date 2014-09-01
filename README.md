@@ -15,4 +15,8 @@ plist_to_images 将cocos2d的plist的各个帧转换回单个图片，只支持p
 
 ================
 
+sqlite3_encrypt 将sqlite3数据库的内容，以内容验证的方式来实现加密，具体思路请查阅main.py的头部描述部分，test.py可测试验证内容。
+
+================
+
 2dx_v3_proj_helper.py 只对应2dx v3，平时为了节省空间删除了2dx的公用文件夹{project_path}/cocos2d，到需要使用的时候执行这个文件将已删除的文件夹复制回对应位置。

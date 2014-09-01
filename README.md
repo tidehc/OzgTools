@@ -15,7 +15,7 @@ plist_to_images 将cocos2d的plist的各个帧转换回单个图片，只支持p
 
 ================
 
-sqlite3_encrypt 将sqlite3数据库的内容，以内容验证的方式来实现加密，具体思路请查阅main.py的头部描述部分，test.py可测试验证内容。
+sqlite3_encrypt 将sqlite3数据库的内容，以内容验证的方式来实现加密，具体思路请查阅main.py的头部描述部分，test.py可测试验证内容。运行在python2.7。
 
 ================
 

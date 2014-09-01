@@ -11,7 +11,12 @@ sys.setdefaultencoding("utf8")
 
 if __name__ == "__main__":
 	
-	db = sqlite3.connect(cfg.db_path)
+	db_path =  raw_input("请输入数据库的路径:\n")
+	
+	if db_path == "" or db_path == None:
+		db_path = cfg.db_path
+
+	db = sqlite3.connect(db_path)
 	db.row_factory = sqlite3.Row
 
 	#查询所有表

@@ -25,11 +25,16 @@ def get_hosts_path():
 
 if __name__ == "__main__":	
 
-	#处理1	
+	#处理逻辑
 	#hosts数据的网址
 	update_url = "http://laod.cn/hosts/2015-google-hosts.html"
-
+	
+	http_headers = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.125 Safari/537.36" }
+	hosts_path = get_hosts_path()
+	
 	http_client = tornado.httpclient.HTTPClient()
+	http_client.headers = http_headers
+	
 	try:
 		response = http_client.fetch(update_url)
 		
@@ -45,10 +50,11 @@ if __name__ == "__main__":
 		
 		#获取hosts数据
 		http_client2 = tornado.httpclient.HTTPClient()
+		http_client2.headers = http_headers
 		try:
 			response2 = http_client.fetch(target_url)
 			
-			hosts_file = open(get_hosts_path())
+			hosts_file = open(hosts_path)
 			hosts_tmp_list = hosts_file.readlines()
 			
 			save_file_list = []
@@ -62,13 +68,13 @@ if __name__ == "__main__":
 			for line in response2.body.split("\n"):
 				save_file_list.append(line)
 			
-			save_file = open(get_hosts_path(), "w")
+			save_file = open(hosts_path, "w")
 			for line in save_file_list:
 				save_file.write(line)
-				
-			save_file.write("\n")
-			save_file.write("#更新时间：" + time.strftime("%Y-%m-%d %H:%M:%S"))
-			save_file.write("\n")
+			
+			save_file.write("\n\n")
+			save_file.write("#更新时间：" + time.strftime("%Y-%m-%d %H:%M:%S") + "\n")
+			save_file.write("#更新版本：" + target_node.text + "\n")
 			save_file.close()
 			
 		except tornado.httpclient.HTTPError as e:
@@ -86,6 +92,6 @@ if __name__ == "__main__":
 		print("Error: " + str(e))
 	http_client.close()
 	
-	#处理1 end
+	#处理逻辑 end
 	
 	print "Complete!"

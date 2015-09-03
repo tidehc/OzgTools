@@ -25,6 +25,11 @@ def get_hosts_path():
 
 if __name__ == "__main__":	
 
+	#暂时只支持window
+	if platform.system() != "Windows":
+		print "Only Windows"
+		exit()
+	
 	#处理逻辑
 	#hosts数据的网址
 	update_url = "http://laod.cn/hosts/2015-google-hosts.html"
@@ -62,7 +67,7 @@ if __name__ == "__main__":
 			for line in hosts_tmp_list:
 				save_file_list.append(line)
 				if line == "#ozg auto update\n":	
-					save_file_list.append("\n")
+					save_file_list.append("\r\n")
 					break
 			
 			for line in response2.body.split("\n"):
@@ -72,9 +77,9 @@ if __name__ == "__main__":
 			for line in save_file_list:
 				save_file.write(line)
 			
-			save_file.write("\n\n")
-			save_file.write("#更新时间：" + time.strftime("%Y-%m-%d %H:%M:%S") + "\n")
-			save_file.write("#更新版本：" + target_node.text + "\n")
+			save_file.write("\r\n\r\n")
+			save_file.write("#更新时间：" + time.strftime("%Y-%m-%d %H:%M:%S") + "\r\n")
+			save_file.write("#更新版本：" + target_node.text + "\r\n")
 			save_file.close()
 			
 		except tornado.httpclient.HTTPError as e:
